@@ -1,13 +1,10 @@
 import AccountProfile from "@/components/forms/AccountProfile";
 import { currentUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-
 async function Page() {
     const user = await currentUser();
     if (!user) return null; // to avoid typescript warnings
   
-    const userInfo = await fetchUser(user.id);
-  if (userInfo?.onboarded) redirect("/");
+    const userInfo = {}
 
     const userData = {
         id: user.id,
@@ -17,7 +14,7 @@ async function Page() {
         bio: userInfo ? userInfo?.bio : "",
         image: userInfo ? userInfo?.image : user.imageUrl,
       };
-    
+      
     return(
         <main className="mx-auto flex max-w-3xl flex-col justify-start px-10 py-10">
             <h1 className="head-text">Onboarding</h1>
